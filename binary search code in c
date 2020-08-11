@@ -1,0 +1,82 @@
+    #include<stdio.h>
+    #include<stdlib.h>
+    #include<string.h>
+    #include<math.h>
+    
+    void read(int *arr,int n)
+    {
+        for(int i=0;i<n;i++)
+            scanf("%d",&arr[i]);
+    }
+    
+    void print(int *arr,int n)
+    {
+        for(int i=0;i<n;i++)
+            printf("%d  ",arr[i]);
+        printf("\n");
+    }
+    
+    int binary(int *arr,int data,int a,int b)
+    {
+        int middle;
+        middle=(a+b)/2;
+        int c;
+        if(a==b)
+        {
+            if(arr[a]==data)
+                return a;
+            return -1;
+        }
+        if(arr[middle]==data)
+            return middle;
+        else if(arr[middle]>data)
+        {
+            b=middle-1;
+            c=binary(arr,data,a,b);
+            return c;
+        }
+        else
+        {
+            a=middle+1;
+            c=binary(arr,data,a,b);
+            return c;
+        }
+    }
+    
+    void sort(int *arr,int n)
+    {
+        int i, key, j; 
+        for (i = 1; i < n; i++)
+        { 
+            key = arr[i]; 
+            j = i - 1; 
+            while (j >= 0 && arr[j] > key)
+            { 
+                arr[j + 1] = arr[j]; 
+                j = j - 1; 
+            } 
+        arr[j + 1] = key; 
+        }     
+    }
+    
+    int main()
+    {
+        int n;
+        printf("enter the size of the array is :");
+        scanf("%d",&n);
+        int *arr;
+        arr=(int *)malloc(n*sizeof(int));
+        read(arr,n);
+        sort(arr,n);
+        int data;
+        print(arr,n);
+        printf("what element do you want to check :");
+        scanf("%d",&data);
+        int r=binary(arr,data,0,n);
+        if(r==-1)
+            printf("element not found\n");
+        else
+            printf("element found at :%d place",r);
+        
+        return 0;
+    }
